@@ -9,10 +9,12 @@ public class nodecreation {
             this.next = null;
         }
     }
+
+    // static Node head;
+
     // Method to create a node and return it
     public static Node createNode(int data) {
         Node newNode = new Node(data);
-        System.out.println("Node was created with value: " + data);
         return newNode;
     }
 
@@ -25,6 +27,8 @@ public class nodecreation {
 
         // Print the list
         printList(head);
+        insert_pos(3, 25, head);
+        printList(head);
     }
 
     static void printList(Node head) {
@@ -32,9 +36,36 @@ public class nodecreation {
         Node current = head;
         while (current != null) {
             System.out.print(current.data);
-            if (current.next != null) System.out.print(" -> ");
+            if (current.next != null)
+                System.out.print(" -> ");
             current = current.next;
         }
         System.out.println(" -> null");
+    }
+
+    static void insert_pos(int pos, int data, Node head) {
+        Node newNode = new Node(data);
+        if (pos == 0) {
+            newNode.next = head;
+            System.out.println("Cannot insert at position 0 with current method signature (void). For pos 0, head reference needs to be updated externally.");
+            return;
+        }
+
+        Node current = head;
+        for (int i = 0; i < pos - 1; i++) {
+            if (current == null) {
+                System.out.println("Position out of bounds");
+                return;
+            }
+            current = current.next;
+        }
+
+        if (current == null) {
+            System.out.println("Position out of bounds");
+            return;
+        }
+
+        newNode.next = current.next;
+        current.next = newNode;
     }
 }
